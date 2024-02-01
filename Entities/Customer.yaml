@@ -1,0 +1,26 @@
+title: BaseResponse      
+type: object
+description: Customer representation
+properties:
+    id:
+        type: string
+        format:
+          type: string
+    name:
+        type: string
+        example: 'John Doe'
+    address:
+      type: string
+      example: '123 Main St'
+    city:
+      type: string
+      example: 'Anytown'
+    newProperty:
+      type: string
+      example: 'NewProperty'
+required:
+    - id
+    - name
+    - address
+    - city
+    - newProperty

@@ -1,0 +1,36 @@
+openapi: 3.0.1
+info:
+  title: WriteCustomerToCosmosDb API
+  description: API for writing customer data to CosmosDB
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:7071/api'
+paths:
+  /WriteCustomerToCosmosDb:
+    post:
+      summary: Write customer data to CosmosDB
+      operationId: WriteCustomerToCosmosDb
+      requestBody:
+        description: Customer data to be written to CosmosDB
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+            example:
+              id: '123'
+              name: 'John Doe'
+              address: '123 Main St'
+              city: 'Anytown'
+      responses:
+        '201':
+          description: Customer data successfully written to CosmosDB
+        '400':
+          description: Request body is empty
+        '500':
+          description: An error occurred while writing to the database
+components:
+  schemas:
+    Customer:
+      schema:
+        $ref: ../Entities/Customer.yaml
