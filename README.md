@@ -75,3 +75,20 @@
 **Return Type:** Task<DiscountValidationResult>
 
 **Description:** Validates a discount.
+```mermaid
+sequenceDiagram
+    participant Client as Client
+    participant DiscountService as DiscountService
+    participant DiscountPluginManager as DiscountPluginManager
+    participant DiscountRequirement as DiscountRequirement
+    participant CustomerService as CustomerService
+    Client->>DiscountService: ValidateDiscountAsync(discount, customer, couponCodesToValidate)
+    DiscountService->>DiscountPluginManager: CheckIfDiscountCanBeApplied(discount, customer)
+    DiscountPluginManager-->>DiscountService: Result (canBeApplied)
+    DiscountService->>DiscountRequirement: CheckRequirementsAsync(discount, customer)
+    DiscountRequirement-->>DiscountService: Result (requirementsMet)
+    DiscountService->>CustomerService: GetCustomerRolesAsync(customer)
+    CustomerService-->>DiscountService: Result (customerRoles)
+    DiscountService->>DiscountService: CheckIfDiscountLimitedToCustomerRole(discount, customerRoles)
+    DiscountService-->>Client: Result (DiscountValidationResult)
+```
